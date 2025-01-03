@@ -32,7 +32,7 @@ Car Destroyer is an action-packed arcade-style game where players navigate throu
 - Health bars are displayed above vehicles
 - Regular cars: 3 health points
 - Boss vehicles: 10 health points
-- Health bars change color based on remaining health
+- Health bars change color based on remaining health **In working state. not fully functional**
 - Instant death on collision with other vehicles
 
 ### Combat System
