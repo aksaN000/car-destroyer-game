@@ -1,8 +1,8 @@
-# Car Destroyer
+# Car Destroyer Game
 
 A two-way-traffic arcade shooter written in Python with legacy OpenGL and GLUT. You weave through ten lanes of traffic, shoot enemy cars, and survive boss vehicles that fire back, alone or head-to-head with a second player on the same keyboard. Every shape on screen is rasterised point by point with the midpoint line and circle algorithms, not OpenGL's built-in primitives; only text uses GLUT bitmap fonts.
 
-![Car Destroyer gameplay](docs/screenshot.png)
+![Car Destroyer Game: a boss fight, with one boss on low health and a car exploding](docs/screenshot.png)
 
 ## Features
 
@@ -42,8 +42,8 @@ Python 3 · PyOpenGL (GL, GLU, GLUT)
 ## Running locally
 
 ```bash
-git clone https://github.com/aksaN000/car-destroyer-opengl.git
-cd car-destroyer-opengl
+git clone https://github.com/aksaN000/car-destroyer-game.git
+cd car-destroyer-game
 pip install -r requirements.txt
 python car_destroyer.py
 ```
