@@ -1,141 +1,65 @@
 # Car Destroyer
 
-Car Destroyer is an action-packed arcade-style game where players navigate through traffic while destroying enemy vehicles and facing challenging boss battles. The game features both single-player and multiplayer modes with increasing difficulty as you progress.
+A two-way-traffic arcade shooter written in Python with legacy OpenGL and GLUT. You weave through ten lanes of traffic, shoot enemy cars, and survive boss vehicles that fire back, alone or head-to-head with a second player on the same keyboard. Every shape on screen is rasterised point by point with the midpoint line and circle algorithms, not OpenGL's built-in primitives; only text uses GLUT bitmap fonts.
 
-## Game Modes
+![Car Destroyer gameplay](docs/screenshot.png)
 
-### Single Player
-- Control a single car and compete for the highest score
-- Navigate through traffic while shooting enemy vehicles
-- Face challenging boss battles
+## Features
 
-### Multiplayer
-- Two-player split-screen action
-- Competitive scoring system
-- Shared screen space with independent controls
-- Different colored cars for easy identification (Red for P1, Blue for P2)
+- **Single-player and local two-player modes:** a red car for player 1 and a blue car for player 2, each with its own score.
+- **Two-way traffic:** ten lanes split by a centre divider, with random spawns and safe-distance spacing between cars.
+- **Boss vehicles:** 10 hit points, larger and red, and they aim and fire at the nearest player on a cooldown.
+- **Health bars:** above every vehicle, shifting from green to yellow to red as health drops.
+- **Particle explosions:** randomised direction, colour, size and fade-out.
+- **Difficulty scaling:** every 1,000 points, traffic density (30% → 60%), vehicle speed and boss frequency all increase.
+- **Scoring:** 150 per car, 1,000 per boss, plus points for survival time.
+- **Menus:** a pause menu (resume, restart, exit to menu) and a game-over screen that names the winner in two-player mode.
 
-## Core Features
+## Controls
 
-### Player Controls
-- **Player 1:**
-  - WASD keys for movement
-  - SPACE to shoot
-  - P to pause game
+| | Player 1 | Player 2 |
+|---|---|---|
+| Move | `W` `A` `S` `D` | Arrow keys |
+| Shoot | `Space` | `End` |
+| Pause | `P` | `P` |
 
-- **Player 2:**
-  - Arrow keys for movement
-  - END key to shoot
+Use `W` / `S` and `Enter` to navigate menus.
 
-### Health System
-- Players and enemy vehicles have health bars
-- Health bars are displayed above vehicles
-- Regular cars: 3 health points
-- Boss vehicles: 10 health points
-- Health bars change color based on remaining health **In not working state. not fully functional**
-- Instant death on collision with other vehicles
+## Graphics techniques
 
-### Combat System
-- Shoot bullets to destroy enemy vehicles
-- Different bullet types:
-  - Player bullets: Normal speed
-  - Boss bullets: Enhanced speed
-- Collision detection for bullets and vehicles
-- Score points for successful hits and destructions
+| Technique | Where it's used |
+|---|---|
+| Midpoint (Bresenham-style) line algorithm, handling steep and reversed lines | Cars, lane markers, road edges, health bars |
+| Midpoint circle algorithm | Bullets and explosion particles |
+| Timer-driven game loop (`glutTimerFunc`) | Fixed-step updates for movement, spawning and collisions |
+| Axis-aligned bounding-box collision | Bullets vs. cars, cars vs. players |
+| Alpha blending | Explosion fade-out, pause and game-over overlays |
 
-### Visual Effects
-- Dynamic explosion particles system
-- Multiple particle effects with:
-  - Random directions
-  - Varying colors (orange, red, yellow)
-  - Different particle sizes
-  - Fade-out effect
-  - Physics-based movement
+## Tech stack
 
-### Scoring System
-- Points awarded for:
-  - Regular car destruction: 150 points
-  - Boss car destruction: 1000 points
-  - Survival time: +1 point per frame
-- Independent scoring in multiplayer mode
-- High score tracking
-- Level progression based on score
+Python 3 · PyOpenGL (GL, GLU, GLUT)
 
-### Difficulty System
-- Dynamic difficulty scaling based on score
-- Difficulty increases every 1000 points
-- Affects multiple game aspects:
-  - Traffic density (30% to 60%)
-  - Vehicle speeds
-  - Boss spawn frequency
-  - Boss attack patterns
+## Running locally
 
-### Traffic System
-- Two-way traffic flow
-- Multiple lanes
-- Random vehicle spawning
-- Different vehicle types
-- Traffic density adjustment based on difficulty
-- Safe distance maintenance between vehicles
+```bash
+git clone https://github.com/aksaN000/car-destroyer-opengl.git
+cd car-destroyer-opengl
+pip install -r requirements.txt
+python car_destroyer.py
+```
 
-### Boss Battles
-- Special boss vehicles with unique features:
-  - Enhanced health (10 HP)
-  - Larger size
-  - Distinct appearance (red coloring)
-  - Special attack patterns
-- Boss mechanics:
-  - Automatic shooting at nearest player
-  - Respawn system
-  - Shooting cooldown
-  - Strategic positioning
+On Windows, the PyOpenGL wheel ships with GLUT. On Linux, also install freeglut (`sudo apt install freeglut3-dev`).
 
-### Environmental Features
-- Multi-lane highway
-- Animated lane markers
-- Central divider
-- Dynamic road scrolling
-- Clear lane separation
+## Project structure
 
-### UI Features
-- Health bars for all vehicles
-- Score display
-- Current level indicator
-- Pause menu with options:
-  - Resume
-  - Restart
-  - Exit to Menu
-- Game over screen with:
-  - Final scores
-  - Winner announcement (multiplayer)
-  - Return to menu option
-- Initial controls display
-- Menu system with game mode selection
+```text
+car_destroyer.py      the game
+labs/                 earlier OpenGL lab work
+  hello_opengl.py         first window and points
+  lab1_house_and_rain.py  a house scene with animated rain that you can steer
+  lab2_circle_shooter.py  a shooter game built on midpoint lines and circles
+  shapes_and_camera.py    shapes, axes and camera/mouse listeners
+docs/screenshot.png
+```
 
-### Performance Optimizations
-- Efficient bullet management
-- Limited maximum number of vehicles
-- Optimized collision detection
-- Frame rate control
-- Memory management for particles and effects
-
-## Technical Details
-
-- Window Size: 800x600 pixels
-- Frame Rate: 60 FPS
-- OpenGL-based rendering
-- Custom drawing algorithms for:
-  - Line drawing (Midpoint algorithm)
-  - Circle drawing (Midpoint circle algorithm)
-- Collision detection system
-- Particle physics system
-
-## Development Info
-
-Built using:
-- Python
-- OpenGL
-- GLUT (OpenGL Utility Toolkit)
-- GLU (OpenGL Utility Library)
-
-The game employs efficient algorithms and optimizations to ensure smooth gameplay while maintaining visual quality and responsive controls.
+Built for CSE423 (Computer Graphics) at BRAC University, Fall 2024.
